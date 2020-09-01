@@ -8,6 +8,7 @@ echo -e "${EDGERC}" > ~/.edgerc
 #  Set Variables
 edgeworkersName=$1
 network=$2
+groupid=$3
 
 echo ${edgeworkersName}
 response=$(akamai edgeworkers list-ids --json --section edgeworkers --edgerc ~/.edgerc)
@@ -42,7 +43,7 @@ if [ -n "$edgeworkersID" ]; then
    ${edgeworkersVersion}
 fi
 if [ -z "$edgeworkersID" ]; then
-    edgeworkersgroupID="93068"
+    edgeworkersgroupID=${groupid}
     # Register ID
     edgeworkerList=$(cat $(akamai edgeworkers register \
                       --json --section edgeworkers \
