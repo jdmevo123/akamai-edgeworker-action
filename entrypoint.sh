@@ -36,7 +36,7 @@ if [ -n "$edgeworkersID" ]; then
    echo "activating"
    activationstatus=$(akamai edgeworkers activate \
    --edgerc ~/.edgerc \
-   --section edgeworkers \
+   --json --section edgeworkers \
    ${edgeworkersID} \
    ${network} \
    ${edgeworkersVersion})
