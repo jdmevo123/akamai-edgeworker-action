@@ -2,27 +2,18 @@ name: "Deploy Akamai Edgeworkers"
 description: "GitHub Action to edgerworkers via Akamai API's"
 author: jdmevo123
 inputs:
-  command:
-    description:  'Purge command (invalidate, delete)'
-    required: true
-    default: 'invalidate'
-  type:
-    description: 'Purge type (tags, cpcode,url)'
-    required: true
-    default: 'tags'
-  ref:
-    description: 'Reference'
+  edgeworkersName:
+    description:  'Name of Edgeworker'
     required: true
   network:
-    description: 'Network'
+    description: 'Network you wish to activate'
     required: true
+    default: 'staging'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.command}}
-    - ${{ inputs.type }}
-    - ${{ inputs.ref }}
+    - ${{ inputs.edgeworkersName}}
     - ${{ inputs.network }}
 branding:
   color: orange
