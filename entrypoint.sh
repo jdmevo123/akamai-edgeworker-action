@@ -6,14 +6,14 @@ set -o pipefail
 echo -e "${EDGERC}" > /root/.edgerc
 
 #copy files to container
-cat /github/workspace/README.md
-ls /github/workspace/
+echo $GITHUB_WORKSPACE
+cat $GITHUB_WORKSPACE/README.md
+ls $GITHUB_WORKSPACE
 mkdir /root/deploy
 mkdir /root/deploy/utils
-echo $(ls /github/workspace/)
-echo /github/workspace/main.js > /root/deploy/main.js
-echo /github/workspace/bundle.json > /root/deploy/bundle.json
-for file in /github/workspace/utils/
+echo $GITHUB_WORKSPACE/main.js > /root/deploy/main.js
+echo $GITHUB_WORKSPACE/bundle.json > /root/deploy/bundle.json
+for file in $GITHUB_WORKSPACE/utils/
 do
   echo "$file" >> /root/deploy/"$file"
 done
