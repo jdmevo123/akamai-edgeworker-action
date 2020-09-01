@@ -1,21 +1,21 @@
 #!/bin/bash
-#set -e
+set -e
 set -o pipefail
 
 # Create /root/.edgerc file from env variable
 echo -e "${EDGERC}" > /root/.edgerc
 
 #copy files to container
-echo $GITHUB_WORKSPACE
-cat $GITHUB_WORKSPACE/main.js
-ls $GITHUB_WORKSPACE
-# mkdir /root/deploy
-# mkdir /root/deploy/utils
+# echo $GITHUB_WORKSPACE
+# cat $GITHUB_WORKSPACE/main.js
+# ls $GITHUB_WORKSPACE
+mkdir /root/deploy
+mkdir /root/deploy/utils
 # echo $GITHUB_WORKSPACE/main.js > /root/deploy/main.js
 # echo $GITHUB_WORKSPACE/bundle.json > /root/deploy/bundle.json
 # for file in $GITHUB_WORKSPACE/utils/
 # do
-#   echo "$file" >> /root/deploy/"$file"
+#   echo "$file" >> /root/deploy/utils/"$file"
 # done
 
 #  Set Variables
