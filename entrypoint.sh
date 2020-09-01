@@ -34,19 +34,19 @@ if [ -n "$edgeworkersID" ]; then
    echo "Activating Edgeworker Version: ${edgeworkersVersion}"
    #ACTIVATE  edgeworker
    echo "activating"
-   activationstatus=$(akamai edgeworkers activate \
+   activationstatus=$(cat $(akamai edgeworkers activate \
    --edgerc ~/.edgerc \
    --section edgeworkers \
    ${edgeworkersID} \
    ${network} \
-   ${edgeworkersVersion})
+   ${edgeworkersVersion}))
    status= $(echo ${activationstatus} | jq '.["status"]')
    echo "Status is: ${status}"
-   if [ "${status}" == "400"]; then
+   if [ ${status} == "400" ]; then
        echo "Previous Version activating ... Skipping activation"
        exit 123
    else
-       if [ "${status}" == "201"]; then
+       if [ ${status} == "201" ]; then
            echo "Activation Successful ..."
        else
            echo "Activation error ..."
