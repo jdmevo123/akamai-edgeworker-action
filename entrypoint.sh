@@ -1,32 +1,82 @@
-#!/bin/sh -l
+#!/bin/bash
 set -e
 set -o pipefail
 
 # Create /root/.edgerc file from env variable
 echo -e "${EDGERC}" > /root/.edgerc
 
-# List Edgeworkers and identify if existing
-_edgeworkersID=akamai edgeworkers list-ids | jq 'select(.edgeWorkerIds.name == ${_edgeworker-name}) | .edgeWorkerId'
-if [ -n "${_edgeworkersID}" ]; then
-   # Upload Version
-    akamai edgeworkers upload \
+#copy files to container
+mkdir /root/deploy/utils
+echo main.js > /root/deploy/main.js
+echo bundle.json > /root/deploy/bundle.json
+for file in utils/
+do
+  echo "$file" >> /root/deploy/"$file"
+done
+
+#  Set Variables
+edgeworkersName=$1
+network=$2
+
+echo ${edgeworkersName}
+edgeworkerList=$(cat $(akamai edgeworkers list-ids --json --section edgeworkers --edgerc /root/.edgerc))
+echo ${edgeworkerList}
+edgeworkersID=$(echo ${edgeworkerList} | jq --arg edgeworkersName "${edgeworkersName}" '.data[] | select(.name == $edgeworkersName) | .edgeWorkerId')
+echo $edgeworkersID
+edgeworkersgroupIude=$(echo $edgeworkerList | jq --arg edgeworkersName "$edgeworkersName" '.data[] | select(.name == $edgeworkersName) | .groupId')
+echo $edgeworkersgroupID
+echo $edgeworkersID
+echo $edgeworkersgroupID
+cd /root/deploy
+tar -czvf /root/deploy.tar.gz main.js bundle.json utils
+
+if [ -n "$edgeworkersID" ]; then
+   echo "Uploading Edgeworker Version"
+   #UPLOAD edgeWorker
+   uploadreponse=$(akamai edgeworkers upload \
+     --edgerc /root/.edgerc \
+     --section edgeworkers \
+     --bundle /root/deploy.tar.gz \
+     ${edgeworkersID})
+   edgeworkersVersion=$(echo $(</root/deploy/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
+   echo "Activating Edgeworker Version: ${edgeworkersVersion}"
+   #ACTIVATE  edgeworker
+   echo "activating"
+   akamai edgeworkers activate \
+   --edgerc /root/.edgerc \
+   --section edgeworkers \
+   ${edgeworkersID} \
+   ${network} \
+   ${edgeworkersVersion}
+fi
+if [ -z "$edgeworkersID" ]; then
+    edgeworkersgroupID="93068"
+    # Register ID
+    edgeworkerList=$(cat $(akamai edgeworkers register \
+                      --json --section edgeworkers \
+                      --edgerc /root/.edgerc  \
+                      ${edgeworkersgroupID} \
+                      ${edgeworkersName}))
+    echo ${edgeworkerList}
+    echo "edgeworker registered"
+    edgeworkersID=$(echo ${edgeworkerList} | jq '.data[] | .edgeWorkerId')
+    edgeworkersgroupID=$(echo ${edgeworkerList} | jq '.data[] | .groupId')
+    echo ${edgeworkersID}
+    echo "Uploading Edgeworker Version"
+    #UPLOAD edgeWorker
+    uploadreponse=$(akamai edgeworkers upload \
       --edgerc /root/.edgerc \
       --section edgeworkers \
-      --codeDir /. \
-      ${_edgeworkersID}
-   # Activate Edgeworker
+      --bundle /root/deploy.tar.gz \
+      ${edgeworkersID})
+    edgeworkersVersion=$(echo $(</root/deploy/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
+    echo "Activating Edgeworker Version: ${edgeworkersVersion}"
+    #ACTIVATE  edgeworker
+    echo "activating"
     akamai edgeworkers activate \
     --edgerc /root/.edgerc \
     --section edgeworkers \
-    ${_edgeworker-id} \
-    ${_NETWORK} \
-    <version-identifier>
-fi
-if [ -z "${_edgeworkersID}" ]; then
-  # Register ID
-    _edgeworkersID=akamai edgeworkers register \
-      --edgerc /root/.edgerc \
-      --section edgeworkers \
-      ${_GROUP} \
-      ${_edgeworker-name} | jq '.edgeWorkerId' 
+    ${edgeworkersID} \
+    ${network} \
+    ${edgeworkersVersion}
 fi
