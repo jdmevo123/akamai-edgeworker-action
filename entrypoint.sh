@@ -7,10 +7,10 @@ echo -e "${EDGERC}" > /root/.edgerc
 
 #copy files to container
 echo $GITHUB_WORKSPACE
-# cat $GITHUB_WORKSPACE/README.md
+cat $GITHUB_WORKSPACE/main.js
 ls $GITHUB_WORKSPACE
-mkdir /root/deploy
-mkdir /root/deploy/utils
+# mkdir /root/deploy
+# mkdir /root/deploy/utils
 # echo $GITHUB_WORKSPACE/main.js > /root/deploy/main.js
 # echo $GITHUB_WORKSPACE/bundle.json > /root/deploy/bundle.json
 # for file in $GITHUB_WORKSPACE/utils/
