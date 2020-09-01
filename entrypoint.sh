@@ -13,20 +13,15 @@ mkdir ~/deploy
 mkdir ~/deploy/utils
 echo $GITHUB_WORKSPACE/main.js > ~/deploy/main.js
 echo $GITHUB_WORKSPACE/bundle.json > ~/deploy/bundle.json
-# for file in $GITHUB_WORKSPACE/utils/
-# do
-#    echo "$file" >> ~/deploy/utils/"$file"
-# done
-for filename in $GITHUB_WORKSPACE/utils/; 
-   do 
-     cp $filename ~/deploy/utils/$filename; 
- done
+cp -a $GITHUB_WORKSPACE/utils/. ~/deploy/utils/
+
 #  Set Variables
 edgeworkersName=$1
 network=$2
 
 echo ${edgeworkersName}
-edgeworkerList=$(cat $(akamai edgeworkers list-ids --json --section edgeworkers --edgerc ~/.edgerc))
+response=$(akamai edgeworkers list-ids --json --section edgeworkers --edgerc ~/.edgerc)
+edgeworkerList=$( cat ${response} )
 echo ${edgeworkerList}
 edgeworkersID=$(echo ${edgeworkerList} | jq --arg edgeworkersName "${edgeworkersName}" '.data[] | select(.name == $edgeworkersName) | .edgeWorkerId')
 echo $edgeworkersID
