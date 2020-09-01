@@ -40,13 +40,14 @@ if [ -n "$edgeworkersID" ]; then
    ${edgeworkersID} \
    ${network} \
    ${edgeworkersVersion})
+   echo "Activatiopn status is: ${activationstatus}"
    status= $(echo ${activationstatus} | jq '.["status"]' | tr -d '"')
    echo "Status is: ${status}"
-   if [ ${status} == 400]; then
+   if [ ${status} == '400']; then
        echo "Previous Version activating ... Skipping activation"
        exit 123
    else
-       if [ ${status} == 200]; then
+       if [ ${status} == '200']; then
            echo "Activation Successful ..."
        else
            echo "Activation error ..."
