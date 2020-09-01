@@ -1,4 +1,4 @@
-FROM akamai/purge
+FROM akamai/akamai-docker
 
 LABEL "com.github.actions.name"="Akamai Edgeworkers"
 LABEL "com.github.actions.description"="Deploy Edgeworkers via the Akamai API's"
