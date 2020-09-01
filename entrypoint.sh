@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 set -o pipefail
 
 # Create /root/.edgerc file from env variable
