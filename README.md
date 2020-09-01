@@ -54,7 +54,6 @@ steps:
       uses: jdmevo123/akamai-edgeworker-action@1.0
       env:
         EDGERC: ${{ secrets.EDGERC }}
-        token: ${{ secrets.PAT_TOKEN }}
       with:
         edgeworkersName: ${{ github.event.repository.name }}
         network: 'staging'
