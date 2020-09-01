@@ -18,7 +18,7 @@ All sensitive variables should be [set as encrypted secrets](https://help.github
 
 You need to declare a `EDGERC` secret in your repository containing the following structure :
 ```
-[ccu]
+[edgeworkers]
 client_secret = your_client_secret
 host = your_host
 access_token = your_access_token
@@ -28,38 +28,37 @@ You can retrieve these from Akamai Control Center >> Identity Management >> API 
 
 ## Inputs
 
-### `command`
+### `edgeworkersName`
 **Required**
-Purge action you wish to run:
-- invalidate : Invalidate all cache on the Akamai edge platform
-- delete : Delete(remove) all cache from the Akamai edge platform
-* Note: use caution when deleting all cache from the Akamai edge platform
+Edgeworker name: Currently set to use repository name
 
-### `type`
+### `network`
 **Required**
-Type of purge required:
-- cpcode : Purge by cpcode
-- tag : Purge by Cache Tag
-- url : Purge by url
+Network:
+- staging
+- production
+Defaults to staging
 
-### `ref`
+### `groupid`
 **Required** 
-CPCode, Cache Tag or url's to purge
+Akamai groupid to assign new registrations to
 
 ## `workflow.yml` Example
 
 Place in a `.yml` file such as this one in your `.github/workflows` folder. [Refer to the documentation on workflow YAML syntax here.](https://help.github.com/en/articles/workflow-syntax-for-github-actions)
 
 ```yaml
-- name: Clear Cache
-      uses: jdmevo123/akamai-purge-action@1.7
+steps:
+    - uses: actions/checkout@v1
+    - name: Deploy Edgeworkers
+      uses: jdmevo123/akamai-edgeworker-action@1.0
       env:
         EDGERC: ${{ secrets.EDGERC }}
+        token: ${{ secrets.PAT_TOKEN }}
       with:
-        command: 'invalidate' 
-        type: 'cpcode' #valid inputs are 'cpcode', 'url' and 'tag'
-        ref: '12345' #input url's as 'https://www.example.com/ https://www.example1.com/'
-        network: 'production'
+        edgeworkersName: ${{ github.event.repository.name }}
+        network: 'staging'
+        groupid: '12345' Akamai GroupID used for registering new edgeworkers
 ```
 ## License
 
