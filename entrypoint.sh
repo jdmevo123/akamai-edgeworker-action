@@ -5,16 +5,6 @@ set -o pipefail
 # Create /root/.edgerc file from env variable
 echo -e "${EDGERC}" > ~/.edgerc
 
-#copy files to container
-echo $GITHUB_WORKSPACE
-# cat $GITHUB_WORKSPACE/main.js
-# ls $GITHUB_WORKSPACE
-mkdir ~/deploy
-mkdir ~/deploy/utils
-echo $GITHUB_WORKSPACE/main.js > ~/deploy/main.js
-echo $GITHUB_WORKSPACE/bundle.json > ~/deploy/bundle.json
-cp -R $GITHUB_WORKSPACE/utils/* ~/deploy/utils
-
 #  Set Variables
 edgeworkersName=$1
 network=$2
@@ -29,7 +19,7 @@ edgeworkersgroupIude=$(echo $edgeworkerList | jq --arg edgeworkersName "$edgewor
 echo $edgeworkersgroupID
 echo $edgeworkersID
 echo $edgeworkersgroupID
-cd ~/deploy
+cd $GITHUB_WORKSPACE
 tar -czvf ~/deploy.tar.gz main.js bundle.json utils
 
 if [ -n "$edgeworkersID" ]; then
@@ -40,7 +30,7 @@ if [ -n "$edgeworkersID" ]; then
      --section edgeworkers \
      --bundle ~/deploy.tar.gz \
      ${edgeworkersID})
-   edgeworkersVersion=$(echo $(<~/deploy/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
+   edgeworkersVersion=$(echo $(<$GITHUB_WORKSPACE/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
    echo "Activating Edgeworker Version: ${edgeworkersVersion}"
    #ACTIVATE  edgeworker
    echo "activating"
@@ -71,7 +61,7 @@ if [ -z "$edgeworkersID" ]; then
       --section edgeworkers \
       --bundle ~/deploy.tar.gz \
       ${edgeworkersID})
-    edgeworkersVersion=$(echo $(<~/deploy/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
+    edgeworkersVersion=$(echo $(<$GITHUB_WORKSPACE/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
     echo "Activating Edgeworker Version: ${edgeworkersVersion}"
     #ACTIVATE  edgeworker
     echo "activating"
