@@ -9,12 +9,16 @@ inputs:
     description: 'Network you wish to activate'
     required: true
     default: 'staging'
+  groupid:
+    description: 'GroupID for new registrations'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.edgeworkersName}}
     - ${{ inputs.network }}
+    - ${{ inputs.groupid }}
 branding:
   color: orange
-  icon: trash-2
+  icon: cloud-lightning
