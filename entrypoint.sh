@@ -7,6 +7,7 @@ echo -e "${EDGERC}" > /root/.edgerc
 
 #copy files to container
 mkdir /root/deploy/utils
+echo $(ls /github/workspace/)
 echo /github/workspace/main.js > /root/deploy/main.js
 echo /github/workspace/bundle.json > /root/deploy/bundle.json
 for file in /github/workspace/utils/
