@@ -11,12 +11,12 @@ cat $GITHUB_WORKSPACE/README.md
 ls $GITHUB_WORKSPACE
 mkdir /root/deploy
 mkdir /root/deploy/utils
-echo $GITHUB_WORKSPACE/main.js > /root/deploy/main.js
-echo $GITHUB_WORKSPACE/bundle.json > /root/deploy/bundle.json
-for file in $GITHUB_WORKSPACE/utils/
-do
-  echo "$file" >> /root/deploy/"$file"
-done
+# echo $GITHUB_WORKSPACE/main.js > /root/deploy/main.js
+# echo $GITHUB_WORKSPACE/bundle.json > /root/deploy/bundle.json
+# for file in $GITHUB_WORKSPACE/utils/
+# do
+#   echo "$file" >> /root/deploy/"$file"
+# done
 
 #  Set Variables
 edgeworkersName=$1
