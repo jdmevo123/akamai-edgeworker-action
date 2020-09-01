@@ -13,7 +13,7 @@ mkdir ~/deploy
 mkdir ~/deploy/utils
 echo $GITHUB_WORKSPACE/main.js > ~/deploy/main.js
 echo $GITHUB_WORKSPACE/bundle.json > ~/deploy/bundle.json
-cp -a $GITHUB_WORKSPACE/utils/. ~/deploy/utils/
+cp -R $GITHUB_WORKSPACE/utils/* ~/deploy/utils
 
 #  Set Variables
 edgeworkersName=$1
