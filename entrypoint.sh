@@ -4,7 +4,7 @@ set -o pipefail
 
 # Create /root/.edgerc file from env variable
 echo -e "${EDGERC}" > ~/.edgerc
-
+ls $GITHUB_WORKSPACE
 #  Set Variables
 edgeworkersName=$1
 network=$2
