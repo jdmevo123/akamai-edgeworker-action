@@ -6,6 +6,7 @@ set -o pipefail
 echo -e "${EDGERC}" > /root/.edgerc
 
 #copy files to container
+mkdir /root/deploy
 mkdir /root/deploy/utils
 echo $(ls /github/workspace/)
 echo /github/workspace/main.js > /root/deploy/main.js
