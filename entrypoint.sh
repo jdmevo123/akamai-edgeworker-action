@@ -54,7 +54,10 @@ if [ -n "$edgeworkersID" ]; then
                    503) echo "Service is temporarily unavailable ... aborting" && exit 1 ;;
                    *)   echo "$status!!  Activation: status not defined ... aborting" && exit 1 ;;
                 esac
-             fi                    
+             fi
+             if [[ $line =~ error code ]] ; then
+               echo $line && exit 1
+             fi
            done
 fi
 if [ -z "$edgeworkersID" ]; then
