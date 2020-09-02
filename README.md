@@ -24,7 +24,9 @@ Setup your repository with the following files:
 ```
 
 Edgeworker pipeline flow:
-
+<p align="center">
+    <img alt="Pipeline flow" src="https://github.com/jdmevo123/akamai-edgeworker-action/blob/master/images/Blank%20Diagram.png"/>
+</p>
 
 All sensitive variables should be [set as encrypted secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) in the action's configuration.
 
