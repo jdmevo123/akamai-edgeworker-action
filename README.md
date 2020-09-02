@@ -9,8 +9,19 @@
 # Deploy Akamai Edgeworkers   
 
 This action calls the Akamai Api's to deploy edgeworkers to the Akamai platform. There are two pipelines in place for your repository, create an edgeworker (register) or upload a new version to an existing edgeworker. In both cases your edgeworker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
+<p align="center">
+    <img alt="Edgeworkers" width="793" height="375" src="https://developer.akamai.com/sites/default/files/inline-images/image1_20.png"/>
+</p>
 
 ## Usage
+
+Setup your repository with the following files:
+```
+<repository name>
+            - bundle.json
+            - main.js
+            - utils/somejs.js
+```
 
 All sensitive variables should be [set as encrypted secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) in the action's configuration.
 
