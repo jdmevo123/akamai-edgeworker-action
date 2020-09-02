@@ -33,6 +33,7 @@ if [ -n "$edgeworkersID" ]; then
          while read line; do
              if [[ $line =~ status ]] ; then
                 status=`echo $line | tr -d -c 0-9`
+                echo "Status is: $status"
                 case $status in
                    200) echo "Activation Successfull" ;;
                    201) edgeworkersVersion=$(echo $(<$GITHUB_WORKSPACE/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
