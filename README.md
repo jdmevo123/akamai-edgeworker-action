@@ -23,6 +23,9 @@ Setup your repository with the following files:
             - utils/somejs.js
 ```
 
+Edgeworker pipeline flow:
+
+
 All sensitive variables should be [set as encrypted secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) in the action's configuration.
 
 ## Authentication
