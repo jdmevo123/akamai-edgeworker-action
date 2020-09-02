@@ -8,7 +8,7 @@
 
 # Deploy Akamai Edgeworkers   
 
-This action calls the Akamai Api's to deploy edgeworkers to the Akamai platform.
+This action calls the Akamai Api's to deploy edgeworkers to the Akamai platform. There are two pipelines in place for your repository, create an edgeworker (first run) or two upload a new version to an existing edgeworker. The action will execute the necessary pipeline when it executes.
 
 ## Usage
 
