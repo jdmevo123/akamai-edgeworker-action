@@ -12,13 +12,8 @@ groupid=$3
 echo ${edgeworkersName}
 response=$(akamai edgeworkers list-ids --json --section edgeworkers --edgerc ~/.edgerc)
 edgeworkerList=$( cat ${response} )
-echo ${edgeworkerList}
 edgeworkersID=$(echo ${edgeworkerList} | jq --arg edgeworkersName "${edgeworkersName}" '.data[] | select(.name == $edgeworkersName) | .edgeWorkerId')
-echo $edgeworkersID
 edgeworkersgroupIude=$(echo $edgeworkerList | jq --arg edgeworkersName "$edgeworkersName" '.data[] | select(.name == $edgeworkersName) | .groupId')
-echo $edgeworkersgroupID
-echo $edgeworkersID
-echo $edgeworkersgroupID
 cd $GITHUB_WORKSPACE
 tar -czvf ~/deploy.tar.gz main.js bundle.json utils
 
@@ -72,7 +67,6 @@ if [ -z "$edgeworkersID" ]; then
     echo "edgeworker registered"
     edgeworkersID=$(echo ${edgeworkerList} | jq '.data[] | .edgeWorkerId')
     edgeworkersgroupID=$(echo ${edgeworkerList} | jq '.data[] | .groupId')
-    echo ${edgeworkersID}
     echo "Uploading Edgeworker Version"
     #UPLOAD edgeWorker
     uploadreponse=$(akamai edgeworkers upload \
