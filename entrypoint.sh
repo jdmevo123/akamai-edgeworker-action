@@ -51,7 +51,7 @@ if [ -n "$edgeworkersID" ]; then
                 esac
              fi
              if [[ $line =~ "error code" ]] ; then
-               echo $line && exit 1
+               echo $line && exit 123
              fi
            done
 fi
@@ -100,7 +100,7 @@ if [ -z "$edgeworkersID" ]; then
                 esac
              fi
              if [[ $line =~ "error code" ]] ; then
-               echo $line && exit 1
+               echo $line && exit 123
              fi
            done
 fi
