@@ -55,7 +55,7 @@ if [ -n "$edgeworkersID" ]; then
                    *)   echo "$status!!  Activation: status not defined ... aborting" && exit 1 ;;
                 esac
              fi
-             if [[ $line =~ error code ]] ; then
+             if [[ $line =~ "error code" ]] ; then
                echo $line && exit 1
              fi
            done
