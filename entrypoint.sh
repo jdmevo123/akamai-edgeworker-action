@@ -34,25 +34,28 @@ if [ -n "$edgeworkersID" ]; then
    echo "Activating Edgeworker Version: ${edgeworkersVersion}"
    #ACTIVATE  edgeworker
    echo "activating"
-   activationstatus=$(akamai edgeworkers activate \
-   --edgerc ~/.edgerc \
-   --json --section edgeworkers \
-   ${edgeworkersID} \
-   ${network} \
-   ${edgeworkersVersion})
-   status= $(echo ${activationstatus} | jq '.["status"]')
-   echo "Status is: ${status}"
-#    if [ ${status} == "400" ]; then
-#        echo "Previous Version activating ... Skipping activation"
-#        exit 123
-#    else
-#        if [ ${status} == "201" ]; then
-#            echo "Activation Successful ..."
-#        else
-#            echo "Activation error ..."
-#            exit 123
-#        fi
-#    fi      
+   akamai edgeworkers activate \
+         --edgerc ~/.edgerc \
+         --section edgeworkers \
+         ${edgeworkersID} \
+         ${network} \
+         ${edgeworkersVersion} |
+           while read line; do
+             if [[ $line =~ status ]] ; then
+                status=`echo $line | tr -d -c 0-9`
+                case $status in
+                   200) echo "Activation Successfull" ;;
+                   201) echo "Activation Successfull" ;;
+                   400) echo "Previous activation still pending ... aborting" && exit 1 ;;
+                   401) echo "Invalid authorization credentials ... aborting" && exit 1 ;;
+                   403) echo "The client is not authorized to invoke the service ... aborting" && exit 1 ;;
+                   422) echo "System limit reached ... aborting" && exit 1 ;;
+                   502) echo "Gateway unavailable to process request ... aborting" && exit 1 ;;
+                   503) echo "Service is temporarily unavailable ... aborting" && exit 1 ;;
+                   *)   echo "$status!!  Activation: status not defined ... aborting" && exit 1 ;;
+                esac
+             fi
+           done
 fi
 if [ -z "$edgeworkersID" ]; then
     edgeworkersgroupID=${groupid}
