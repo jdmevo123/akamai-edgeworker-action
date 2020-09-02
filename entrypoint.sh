@@ -41,13 +41,13 @@ if [ -n "$edgeworkersID" ]; then
                 case $status in
                    200) echo "Activation Successfull" ;;
                    201) echo "Activation Successfull" ;;
-                   400) echo "Previous activation still pending ... aborting" && exit 1 ;;
-                   401) echo "Invalid authorization credentials ... aborting" && exit 1 ;;
-                   403) echo "The client is not authorized to invoke the service ... aborting" && exit 1 ;;
-                   422) echo "System limit reached ... aborting" && exit 1 ;;
-                   502) echo "Gateway unavailable to process request ... aborting" && exit 1 ;;
-                   503) echo "Service is temporarily unavailable ... aborting" && exit 1 ;;
-                   *)   echo "$status!!  Activation: status not defined ... aborting" && exit 1 ;;
+                   400) echo "Previous activation still pending ... aborting" && exit 123 ;;
+                   401) echo "Invalid authorization credentials ... aborting" && exit 123 ;;
+                   403) echo "The client is not authorized to invoke the service ... aborting" && exit 123 ;;
+                   422) echo "System limit reached ... aborting" && exit 123 ;;
+                   502) echo "Gateway unavailable to process request ... aborting" && exit 123 ;;
+                   503) echo "Service is temporarily unavailable ... aborting" && exit 123 ;;
+                   *)   echo "$status!!  Activation: status not defined, confirm if activation was successful in control centre ... aborting" && exit 123 ;;
                 esac
              fi
              if [[ $line =~ "error code" ]] ; then
@@ -90,13 +90,13 @@ if [ -z "$edgeworkersID" ]; then
                 case $status in
                    200) echo "Activation Successfull" ;;
                    201) echo "Activation Successfull" ;;
-                   400) echo "Previous activation still pending ... aborting" && exit 1 ;;
-                   401) echo "Invalid authorization credentials ... aborting" && exit 1 ;;
-                   403) echo "The client is not authorized to invoke the service ... aborting" && exit 1 ;;
-                   422) echo "System limit reached ... aborting" && exit 1 ;;
-                   502) echo "Gateway unavailable to process request ... aborting" && exit 1 ;;
-                   503) echo "Service is temporarily unavailable ... aborting" && exit 1 ;;
-                   *)   echo "$status!!  Activation: status not defined ... aborting" && exit 1 ;;
+                   400) echo "Previous activation still pending ... aborting" && exit 123 ;;
+                   401) echo "Invalid authorization credentials ... aborting" && exit 123 ;;
+                   403) echo "The client is not authorized to invoke the service ... aborting" && exit 123 ;;
+                   422) echo "System limit reached ... aborting" && exit 123 ;;
+                   502) echo "Gateway unavailable to process request ... aborting" && exit 123 ;;
+                   503) echo "Service is temporarily unavailable ... aborting" && exit 123 ;;
+                   *)   echo "$status!!  Activation: status not defined, confirm if activation was successful in control centre ... aborting" && exit 123 ;;
                 esac
              fi
              if [[ $line =~ "error code" ]] ; then
