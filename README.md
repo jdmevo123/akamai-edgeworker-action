@@ -1,6 +1,6 @@
 <p align="center">
   <img alt="Akamai logo" width="400" height="400" src="https://www.eiseverywhere.com/file_uploads/8fca94ae15da82d17d76787b3e6a987a_logo_akamai-developer-experience-2-OL-RGB.png"/>
-  <h3 align="center">GitHub Action to deploy Akamai Edgeworkers</h3>
+  <h3 align="center">GitHub Action to deploy Akamai EdgeWorkers</h3>
   <p align="center">
     <img alt="GitHub license" src="https://badgen.net/github/license/jdmevo123/akamai-purge-action?cache=300&color=green"/>
   </p>
@@ -8,7 +8,7 @@
 
 # Deploy Akamai Edgeworkers   
 
-This action calls the Akamai Api's to deploy edgeworkers to the Akamai platform. There are two pipelines in place for your repository, create an edgeworker (register) or upload a new version to an existing edgeworker. In both cases your edgeworker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
+This action calls the Akamai Api's to deploy EdgeWorkers to the Akamai platform. There are two pipelines in place for your repository, create an EdgeWorker (register) or upload a new version to an existing EdgeWorker. In both cases your EdgeWorker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
 <p align="center">
     <img alt="Edgeworkers" width="793" height="375" src="https://developer.akamai.com/sites/default/files/inline-images/image1_20.png"/>
 </p>
@@ -23,7 +23,7 @@ Setup your repository with the following files:
             - utils/somejs.js
 ```
 
-Edgeworker pipeline flow:
+EdgeWorker pipeline flow:
 <p align="center">
     <img alt="Pipeline flow" src="https://github.com/jdmevo123/akamai-edgeworker-action/blob/master/images/Blank%20Diagram.png"/>
 </p>
