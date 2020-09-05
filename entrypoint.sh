@@ -15,7 +15,33 @@ edgeworkerList=$( cat ${response} )
 edgeworkersID=$(echo ${edgeworkerList} | jq --arg edgeworkersName "${edgeworkersName}" '.data[] | select(.name == $edgeworkersName) | .edgeWorkerId')
 edgeworkersgroupIude=$(echo $edgeworkerList | jq --arg edgeworkersName "$edgeworkersName" '.data[] | select(.name == $edgeworkersName) | .groupId')
 cd $GITHUB_WORKSPACE
-tar -czvf ~/deploy.tar.gz main.js bundle.json utils
+
+tarCommand='tar -czvf ~/deploy.tar.gz'
+# check if needed files exist
+mainJSFile='main.js'
+bundleFile='bundle.json'
+utilitiesDir='utils'
+if [ -f $mainJSFile ] ; then 
+  tarCommand=${tarCommand}" $mainJSFile"
+else
+  echo "Error: $mainJSFile is missing" && exit 123
+fi 
+if [ -f $bundleFile ] ; then 
+  tarCommand=${tarCommand}" $bundleFile"
+else
+  echo "Error: $bundleFile is missing" && exit 123
+fi 
+# pack optional JS libriries if exist 
+if [ -d $utilitiesDir ] ; then 
+  tarCommand=${bundleFile}" $utilitiesDir"
+fi
+# execute tar command
+eval $tarCommand
+if [ "$?" -ne "0" ]
+then
+  echo "ERROR: tar command failed" 
+  exit 123
+fi
 
 if [ -n "$edgeworkersID" ]; then
    echo "Uploading Edgeworker Version"
