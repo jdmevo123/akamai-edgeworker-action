@@ -33,7 +33,7 @@ else
 fi 
 # pack optional JS libriries if exist 
 if [ -d $utilitiesDir ] ; then 
-  tarCommand=${bundleFile}" $utilitiesDir"
+  tarCommand=${tarCommand}" $utilitiesDir"
 fi
 # execute tar command
 eval $tarCommand
