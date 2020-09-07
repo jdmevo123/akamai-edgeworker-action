@@ -73,7 +73,7 @@ steps:
       with:
         edgeworkersName: ${{ github.event.repository.name }}
         network: 'staging'
-        groupid: '12345' Akamai GroupID used for registering new edgeworkers
+        groupid: '12345' #Akamai GroupID used for registering new edgeworkers
 ```
 ## License
 
