@@ -8,7 +8,7 @@
 
 # Deploy Akamai EdgeWorkers   
 
-This action calls the Akamai Api's to deploy EdgeWorkers to the Akamai platform. There are two pipelines in place for your repository, create an EdgeWorker (register) or upload a new version to an existing EdgeWorker. In both cases your EdgeWorker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
+This action calls the Akamai Api's to deploy <a href="https://developer.akamai.com/akamai-edgeworkers-overview" target="_blank">EdgeWorkers</a> to the Akamai platform. There are two pipelines in place for your repository, create an EdgeWorker (register) or upload a new version to an existing EdgeWorker. In both cases your EdgeWorker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
 <p align="center">
     <img alt="Edgeworkers" width="793" height="375" src="https://developer.akamai.com/sites/default/files/inline-images/image1_20.png"/>
 </p>
@@ -32,7 +32,7 @@ All sensitive variables should be [set as encrypted secrets](https://help.github
 
 ## Authentication
 
-You need to declare a `EDGERC` secret in your repository containing the following structure :
+You need to declare a `AKAMAI_EDGERC` secret in your repository containing the following structure :
 ```
 [edgeworkers]
 client_secret = your_client_secret
@@ -69,7 +69,7 @@ steps:
     - name: Deploy Edgeworkers
       uses: jdmevo123/akamai-edgeworker-action@1.0
       env:
-        EDGERC: ${{ secrets.EDGERC }}
+        EDGERC: ${{ secrets.AKAMAI_EDGERC }}
       with:
         edgeworkersName: ${{ github.event.repository.name }}
         network: 'staging'
