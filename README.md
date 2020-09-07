@@ -6,7 +6,7 @@
   </p>
 </p>
 
-# Deploy Akamai Edgeworkers   
+# Deploy Akamai EdgeWorkers   
 
 This action calls the Akamai Api's to deploy EdgeWorkers to the Akamai platform. There are two pipelines in place for your repository, create an EdgeWorker (register) or upload a new version to an existing EdgeWorker. In both cases your EdgeWorker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
 <p align="center">
