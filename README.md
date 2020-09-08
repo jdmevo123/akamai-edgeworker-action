@@ -10,7 +10,7 @@
 
 This action calls the Akamai Api's to deploy <a href="https://developer.akamai.com/akamai-edgeworkers-overview" target="_blank">EdgeWorkers</a> to the Akamai platform. There are two pipelines in place for your repository, create an EdgeWorker (register) or upload a new version to an existing EdgeWorker. In both cases your EdgeWorker bundle will be uploaded and activated to the network you have selected. The action will execute the necessary pipeline when it executes.
 <p align="center">
-    <img alt="Edgeworkers" width="793" height="375" src="https://developer.akamai.com/sites/default/files/inline-images/image1_20.png"/>
+    <img alt="Edgeworkers" width="793" src="https://developer.akamai.com/sites/default/files/inline-images/image1_20.png"/>
 </p>
 
 ## Usage
