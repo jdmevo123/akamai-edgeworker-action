@@ -14,7 +14,6 @@ response=$(akamai edgeworkers list-ids --json --section edgeworkers --edgerc ~/.
 edgeworkerList=$( cat ${response} )
 edgeworkersID=$(echo ${edgeworkerList} | jq --arg edgeworkersName "${edgeworkersName}" '.data[] | select(.name == $edgeworkersName) | .edgeWorkerId')
 edgeworkersgroupIude=$(echo $edgeworkerList | jq --arg edgeworkersName "$edgeworkersName" '.data[] | select(.name == $edgeworkersName) | .groupId')
-cd $GITHUB_WORKSPACE
 
 tarCommand='tar -czvf ~/deploy.tar.gz'
 # check if needed files exist
@@ -51,7 +50,7 @@ if [ -n "$edgeworkersID" ]; then
      --section edgeworkers \
      --bundle ~/deploy.tar.gz \
      ${edgeworkersID})
-   edgeworkersVersion=$(echo $(<$GITHUB_WORKSPACE/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
+   edgeworkersVersion=$(echo $(<$bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
    echo "Activating Edgeworker Version: ${edgeworkersVersion}"
    #ACTIVATE  edgeworker
    echo "activating"
@@ -100,7 +99,7 @@ if [ -z "$edgeworkersID" ]; then
       --section edgeworkers \
       --bundle ~/deploy.tar.gz \
       ${edgeworkersID})
-    edgeworkersVersion=$(echo $(<$GITHUB_WORKSPACE/bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
+    edgeworkersVersion=$(echo $(<$bundle.json) | jq '.["edgeworker-version"]' | tr -d '"')
     echo "Activating Edgeworker Version: ${edgeworkersVersion}"
      #ACTIVATE  edgeworker
     echo "activating"
