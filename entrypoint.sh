@@ -1,10 +1,6 @@
 #!/bin/bash
 set -o pipefail
 
-env
-echo ${GITHUB_WORKSPACE}
-ls -althr ${GITHUB_WORKSPACE}
-
 # Create /root/.edgerc file from env variable
 echo -e "${EDGERC}" > ~/.edgerc
 
@@ -18,7 +14,12 @@ response=$(akamai edgeworkers list-ids --json --section edgeworkers --edgerc ~/.
 edgeworkerList=$( cat ${response} )
 edgeworkersID=$(echo ${edgeworkerList} | jq --arg edgeworkersName "${edgeworkersName}" '.data[] | select(.name == $edgeworkersName) | .edgeWorkerId')
 edgeworkersgroupIude=$(echo $edgeworkerList | jq --arg edgeworkersName "$edgeworkersName" '.data[] | select(.name == $edgeworkersName) | .groupId')
-cd $GITHUB_WORKSPACE
+
+if [ -n "${WORKER_DIR}" ]; then
+  GITHUB_WORKSPACE="${GITHUB_WORKSPACE}/${WORKER_DIR}"
+fi
+
+cd ${GITHUB_WORKSPACE}
 
 tarCommand='tar -czvf ~/deploy.tar.gz'
 # check if needed files exist
