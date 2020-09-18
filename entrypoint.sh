@@ -1,6 +1,10 @@
 #!/bin/bash
 set -o pipefail
 
+env
+echo ${GITHUB_WORKSPACE}
+ls -althr ${GITHUB_WORKSPACE}
+
 # Create /root/.edgerc file from env variable
 echo -e "${EDGERC}" > ~/.edgerc
 
