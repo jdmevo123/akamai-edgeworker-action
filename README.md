@@ -67,7 +67,7 @@ Place in a `.yml` file such as this one in your `.github/workflows` folder. [Ref
 steps:
     - uses: actions/checkout@v1
     - name: Deploy Edgeworkers
-      uses: jdmevo123/akamai-edgeworker-action@1.0
+      uses: jdmevo123/akamai-edgeworker-action@1.1
       env:
         EDGERC: ${{ secrets.AKAMAI_EDGERC }}
         WORKER_DIR: workerdirname # Optional directory for worker code (relative)
