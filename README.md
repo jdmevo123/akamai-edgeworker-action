@@ -70,11 +70,13 @@ steps:
       uses: jdmevo123/akamai-edgeworker-action@1.0
       env:
         EDGERC: ${{ secrets.AKAMAI_EDGERC }}
+        WORKER_DIR: workerdirname # Optional directory for worker code (relative)
       with:
         edgeworkersName: ${{ github.event.repository.name }}
         network: 'staging'
         groupid: '12345' #Akamai GroupID used for registering new edgeworkers
 ```
+
 ## License
 
 This project is distributed under the [MIT license](LICENSE.md).
